@@ -76,14 +76,15 @@ public class BandTest {
     assertEquals(myBand.getId(), savedBand.getId());
   }
 
-  // @Test
-  // public void find_findBandInDatabase_true() {
-  //   Band myBand = new Band("Household chores");
-  //   myBand.save();
-  //   Band savedBand = Band.find(myBand.getId());
-  //   assertTrue(myBand.equals(savedBand));
-  // }
-  //
+  @Test
+  public void find_findBandInDatabase_true() {
+    String[] array = {"1", "3"};
+    Band myBand = new Band("twenty one pilots", "a band", "bad", array);
+    myBand.save();
+    Band savedBand = Band.find(myBand.getId());
+    assertTrue(myBand.equals(savedBand));
+  }
+
   // @Test
   // public void addTask_addsTaskToBand_true() {
   //   Band myBand = new Band("Household chores");
@@ -95,17 +96,17 @@ public class BandTest {
   //   assertTrue(myTask.equals(savedTask));
   // }
   //
-  // @Test
-  // public void getTasks_returnsAllTasks_List() {
-  //   Band myBand = new Band("Household chores");
-  //   myBand.save();
-  //   Task myTask = new Task("Mow the lawn", "2016-05-14");
-  //   myTask.save();
-  //   myBand.addTask(myTask);
-  //   List savedTasks = myBand.getTasks();
-  //   assertEquals(1, savedTasks.size());
-  // }
-  //
+  @Test
+  public void getTasks_returnsAllTasks_List() {
+    String[] array = {"1", "3"};
+    Band myBand = new Band("twenty one pilots", "a band", "bad", array);
+    myBand.save();
+    Venue myVenue = new Venue("Moda Center", "13105", true);
+    myVenue.save();
+    List savedVenues = myBand.getVenues();
+    assertEquals(1, savedVenues.size());
+  }
+
   // @Test
   // public void delete_deletesAllTasksAndCategoriesAssociations() {
   //   Band myBand = new Band("Household chores");
