@@ -58,7 +58,7 @@ public class BandTest {
     Band myBand2 = new Band("twenty one pilots", "a band", "bad", array2);
     assertTrue(myBand1.equals(myBand2));
   }
-  
+
   @Test
   public void save_savesObjectIntoDatabase_true() {
     String[] array = {"1", "3"};
@@ -67,14 +67,15 @@ public class BandTest {
     assertTrue(Band.all().get(0).equals(myBand));
   }
 
-  // @Test
-  // public void save_assignsIdToObject_int() {
-  //   Band myBand = new Band("Household chores");
-  //   myBand.save();
-  //   Band savedBand = Band.all().get(0);
-  //   assertEquals(myBand.getId(), savedBand.getId());
-  // }
-  //
+  @Test
+  public void save_assignsIdToObject_int() {
+    String[] array = {"1", "3"};
+    Band myBand = new Band("twenty one pilots", "a band", "bad", array);
+    myBand.save();
+    Band savedBand = Band.all().get(0);
+    assertEquals(myBand.getId(), savedBand.getId());
+  }
+
   // @Test
   // public void find_findBandInDatabase_true() {
   //   Band myBand = new Band("Household chores");
