@@ -1,0 +1,32 @@
+<h1>All venues</h1>
+
+<ul>
+  #foreach ($venue in $venues)
+      <li><a href="/venues/$venue.getId()">$venue.getName()</a>
+      <ul><li>Minor Friendly: #if($venue.getminor()) Yes #else No #end</li></ul></li>
+  #end
+</ul>
+
+<p>Add a new venue:</p>
+
+<form action="/venues" method="post">
+  <div class="form-group">
+    <label for="name">Venue Name</label>
+    <input id="name" name="name" required autofocus placeholder="Name of Venue" class="form-control" type="text">
+  </div>
+  <div class="form-group">
+    <label for="location">Venue Location</label>
+    <input id="location" name="location" required class="form-control" placeholder="Location of Venue" type="text">
+  </div>
+  <div class="form-group">
+    <label for="minor">Minors Allowed?</label>
+    <select id="minor" name="minor" required class="form-control">
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+  </div>
+    <button type="submit" class="btn btn-success">Add Venue</button>
+
+</form>
+
+<p><a href="/">Home</a></p>
