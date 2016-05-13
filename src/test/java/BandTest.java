@@ -18,6 +18,7 @@ public class BandTest {
 
   @Test
   public void getName_BandInstantiatesWithName_String() {
+    String[] array = {"1", "3"};
     Band myBand = new Band("twenty one pilots", "a band", "bad", array);
     assertEquals("twenty one pilots", myBand.getName());
   }
