@@ -51,21 +51,22 @@ public class BandTest {
   }
 
   @Test
-  public void equals_returnsTrueIfNamesAretheSame_true() {
+  public void equals_returnsTrueIfDescriptionsAretheSame_true() {
     String[] array = {"1", "3"};
     Band myBand1 = new Band("twenty one pilots", "a band", "bad", array);
     String[] array2 = {"1", "3"};
     Band myBand2 = new Band("twenty one pilots", "a band", "bad", array2);
     assertTrue(myBand1.equals(myBand2));
   }
-  //
-  // @Test
-  // public void save_savesObjectIntoDatabase_true() {
-  //   Band myBand = new Band("Household chores");
-  //   myBand.save();
-  //   assertTrue(Band.all().get(0).equals(myBand));
-  // }
-  //
+  
+  @Test
+  public void save_savesObjectIntoDatabase_true() {
+    String[] array = {"1", "3"};
+    Band myBand = new Band("twenty one pilots", "a band", "bad", array);
+    myBand.save();
+    assertTrue(Band.all().get(0).equals(myBand));
+  }
+
   // @Test
   // public void save_assignsIdToObject_int() {
   //   Band myBand = new Band("Household chores");
