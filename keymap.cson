@@ -1,0 +1,2 @@
+'editor':
+  'cmd-ctrl-i': 'editor:auto-indent'

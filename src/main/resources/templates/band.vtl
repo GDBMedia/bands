@@ -1,0 +1,30 @@
+
+<div class="row">
+  <div class="col-sm-6">
+    <h1>$band.getName()</h1>
+    <h2>Description</h2>
+    <h4>$band.getDescription()</h4>
+    <h4>Genere: $band.getGenre()</h4>
+    <hr>
+    <h2>Venues</h2>
+    <ul>
+    </div>
+    <div class="col-sm-6">
+      <form action="/bands/edit/$band.getId()" method="get" class="myinline">
+        <button type="submit" class="btn btn-lg btn-info">Edit</button>
+      </form>
+
+      <form action="/delete/$band.getId()" method="post" class="myinline">
+        <input name="type" type="hidden" class="form-control" value="1">
+        <button type="submit" class="btn btn-lg btn-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+
+#foreach($venue in $band.getVenues())
+  <li><a href="/venues/$venue.getId()">$venue.getName()</a>
+    <ul><li>Minor Friendly: #if($venue.getMinor()) Yes #else No #end</li>
+        <li>Address: $venue.getLocation()</li>
+    </ul></li>
+    <hr>
+  #end

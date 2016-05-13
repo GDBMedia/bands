@@ -1,0 +1,25 @@
+<h1>All Bands</h1>
+#if($bands.size() > 0)
+
+<div class="row">
+  #set( $a = 0 )
+  #foreach ($band in $bands)
+    #if($a == 4)
+      #set( $a = 0 )
+      </div>
+      <div class="row">
+    #end
+    #set($a = $a+1)
+    #if($band.getName() != "")
+      <div class="col-md-3">
+        <li><a href="/bands/$band.getId()">$band.getName()</a>
+        <ul><li>Genre: $band.getGenre()</li></ul></li>
+      </div>
+    #end
+  #end
+</div>
+#else
+<h3>No Bands Added Yet</h3>
+#end
+
+<p><a href="/">Home</a></p>

@@ -1,0 +1,27 @@
+<h1>$venue.getName()</h1>
+<h2>Location</h2>
+<h4>Address: $venue.getLocation()</h4>
+<hr>
+<h2>Upcoming Shows</h2>
+<ul>
+  #foreach($band in $venue.getBands())
+  <div class="row">
+    <div class="col-sm-6">
+      <li><a href="/bands/$band.getId()">$band.getName()</a>
+        <ul><li>Genre: $band.getGenre()</li></ul></li>
+        <hr>
+      </div>
+      <div class="col-sm-6">
+        <form action="/bands/edit/$band.getId()" method="get" class="myinline">
+          <button type="submit" class="btn btn-lg btn-info">Edit</button>
+        </form>
+
+        <form action="/delete/$band.getId()" method="post" class="myinline">
+          <input name="type" type="hidden" class="form-control" value="2">
+          <input name="id" type="hidden" class="form-control" value="$venue.getId()">
+          <button type="submit" class="btn btn-lg btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+    #end
+    <p><a href="/">Home</a></p>

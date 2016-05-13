@@ -10,12 +10,18 @@ public class Band {
   private int id;
   private String name;
   private String description;
+  private List<Integer> checkedVenues = new ArrayList<Integer>();
   private String genre;
 
-  public Band(String name, String description, String genre) {
+  public Band(String name, String description, String genre, String[] stringVenues) {
     this.name = name;
     this.description = description;
     this.genre = genre;
+    List<Integer> intVenues = new ArrayList<Integer>();
+     for(String stringtag : stringVenues){
+       intVenues.add(Integer.parseInt(stringtag));
+     }
+    this.checkedVenues = intVenues;
   }
 
   public String getName() {
@@ -35,9 +41,15 @@ public class Band {
   }
 
   public static List<Band> all() {
-    String sql = "SELECT * FROM bands ORDER BY duedate ASC";
+    String sql = "SELECT * FROM bands ORDER BY genre ASC";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Band.class);
+    }
+  }
+  public static List<String> allGenre() {
+    String sql = "SELECT genre FROM bands ORDER BY genre ASC";
+    try(Connection con = DB.sql2o.open()) {
+      return con.createQuery(sql).executeAndFetch(String.class);
     }
   }
 
@@ -61,6 +73,14 @@ public class Band {
       .addParameter("genre", this.genre)
       .executeUpdate()
       .getKey();
+
+      for (Integer checkedvenue : this.checkedVenues) {
+       String joinvenues_bandsTableAdd = "INSERT INTO venues_bands (venue_id, band_id) VALUES (:venue_id, :band_id)";
+       con.createQuery(joinvenues_bandsTableAdd)
+       .addParameter("venue_id", checkedvenue)
+       .addParameter("band_id", this.getId())
+       .executeUpdate();
+     }
     }
   }
 
@@ -74,7 +94,11 @@ public class Band {
     }
   }
 
-  public void update(String newDescription, String newDuedate, String newGenre) {
+  public void update(String newName, String newDescription, String newGenre, String[] stringVenues) {
+    List<Integer> intVenues = new ArrayList<Integer>();
+     for(String stringtag : stringVenues){
+       intVenues.add(Integer.parseInt(stringtag));
+     }
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE bands SET name = :name, description = :description, genre = :genre WHERE id = :id";
       con.createQuery(sql)
@@ -83,6 +107,20 @@ public class Band {
       .addParameter("genre", newGenre)
       .addParameter("id", this.id)
       .executeUpdate();
+
+      String joinDeleteQuery = "DELETE FROM venues_bands WHERE band_id = :bandId";
+        con.createQuery(joinDeleteQuery)
+          .addParameter("bandId", this.getId())
+          .executeUpdate();
+
+      for (Integer checkedvenue : intVenues) {
+       String joinvenues_bandsTableAdd = "INSERT INTO venues_bands (venue_id, band_id) VALUES (:venue_id, :band_id)";
+       con.createQuery(joinvenues_bandsTableAdd)
+       .addParameter("venue_id", checkedvenue)
+       .addParameter("band_id", this.getId())
+       .executeUpdate();
+     }
+
     }
   }
 
@@ -100,34 +138,14 @@ public class Band {
     }
   }
 
-  public void addVenue(Venue venue) {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO venues_bands (venue_id, band_id) VALUES (:venue_id, :band_id)";
-      con.createQuery(sql)
-      .addParameter("venue_id", venue.getId())
-      .addParameter("band_id", this.getId())
-      .executeUpdate();
-    }
-  }
-
   public List<Venue> getVenues() {
-    try(Connection con = DB.sql2o.open()){
-      String joinQuery = "SELECT venue_id FROM venues_bands WHERE band_id = :band_id";
-      List<Integer> venueIds = con.createQuery(joinQuery)
-      .addParameter("band_id", this.getId())
-      .executeAndFetch(Integer.class);
-
-      List<Venue> venues = new ArrayList<Venue>();
-
-      for (Integer venueId : venueIds) {
-        String bandQuery = "Select * From venues WHERE id = :venueId";
-        Venue venue = con.createQuery(bandQuery)
-        .addParameter("venueId", venueId)
-        .executeAndFetchFirst(Venue.class);
-        venues.add(venue);
-      }
-      return venues;
-    }
+  try(Connection con = DB.sql2o.open()){
+    String joinQuery = "SELECT venues.* FROM bands JOIN venues_bands ON (bands.id = venues_bands.band_id) JOIN venues ON (venues_bands.venue_id = venues.id) WHERE bands.id = :band_id ORDER BY venues.name ASC";
+    List<Venue> venues = con.createQuery(joinQuery)
+    .addParameter("band_id", this.getId())
+    .executeAndFetch(Venue.class);
+    return venues;
   }
+}
 
 }

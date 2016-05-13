@@ -1,12 +1,27 @@
 <h1>All venues</h1>
+#if($venues.size() > 0)
 
-<ul>
-  #foreach ($venue in $venues)
-      <li><a href="/venues/$venue.getId()">$venue.getName()</a>
-      <ul><li>Minor Friendly: #if($venue.getminor()) Yes #else No #end</li></ul></li>
+<div class="row">
+  #set( $a = 0 )
+  #foreach($venue in $venues)
+    #if($a == 4)
+      #set( $a = 0 )
+      </div>
+      <div class="row">
+    #end
+    #set($a = $a+1)
+    #if($venue.getName() != "")
+      <div class="col-sm-3">
+        <li><a href="/venues/$venue.getId()">$venue.getName()</a>
+        <ul><li>Minor Friendly: #if($venue.getMinor()) Yes #else No #end</li></ul></li>
+      </div>
+    #end
   #end
-</ul>
+</div>
 
+#else
+<h3>No Venues Added Yet</h3>
+#end
 <p>Add a new venue:</p>
 
 <form action="/venues" method="post">

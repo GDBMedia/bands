@@ -1,9 +1,40 @@
+li{
+  font-size: 1.1em;
+}
+a{
+    font-size: 1.2em;
+}
+.mylabel{
+  font-size: 1.4em;
+  margin-right: 3em;
+  margin-left: .5em;
+  color: #B8B6B6;
+}
+
+.mylabel:hover{
+  margin-right: 3em;
+  margin-left: .5em;
+  color: #8B0010;
+  text-decoration: underline;
+}
+
+.mycheckbox {
+  display: none;
+}
+input[type=checkbox]:checked + label {
+  color: #8B0010;
+}
+.row{
+  margin-top: 2em;
+}
+
+.col-sm-3{
+  height: 4.3em;
+}
+.venuecheck{
+  text-align: center;
+  height: 3em;
+}
 .myinline {
     display: inline-block;
-}
-.fix{
-  text-align: right;
-}
-li{
-  font-size: 1.4em;
 }
