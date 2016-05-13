@@ -23,6 +23,13 @@ public class BandTest {
     assertEquals("twenty one pilots", myBand.getName());
   }
 
+  @Test
+  public void getGenre_BandInstantiatesWithGenre_String() {
+    String[] array = {"1", "3"};
+    Band myBand = new Band("twenty one pilots", "a band", "bad", array);
+    assertEquals("bad", myBand.getGenre());
+  }
+
   // @Test
   // public void all_emptyAtFirst_0() {
   //   assertEquals(0, Band.all().size());
