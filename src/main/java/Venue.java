@@ -70,31 +70,6 @@ public class Venue {
     }
   }
 
-//   public void delete() {
-//   try(Connection con = DB.sql2o.open()) {
-//     String deleteQuery = "DELETE FROM venues WHERE id = :id;";
-//       con.createQuery(deleteQuery)
-//         .addParameter("id", this.getId())
-//         .executeUpdate();
-//
-//     String joinDeleteQuery = "DELETE FROM venues_bands WHERE venue_id = :venueId";
-//       con.createQuery(joinDeleteQuery)
-//         .addParameter("venueId", this.getId())
-//         .executeUpdate();
-//   }
-// }
-
-  // public void addBand(Band band) {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "INSERT INTO venues_bands (venue_id, band_id) VALUES (:venue_id, :band_id)";
-  //     con.createQuery(sql)
-  //     .addParameter("venue_id", this.getId())
-  //     .addParameter("band_id", band.getId())
-  //     .executeUpdate();
-  //   }
-  // }
-
-
   public List<Band> getBands() {
   try(Connection con = DB.sql2o.open()){
     String joinQuery = "SELECT bands.* FROM venues JOIN venues_bands ON (venues.id = venues_bands.venue_id) JOIN bands ON (venues_bands.band_id = bands.id) WHERE venues.id = :venue_id ORDER BY genre ASC";

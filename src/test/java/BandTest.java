@@ -85,17 +85,16 @@ public class BandTest {
     assertTrue(myBand.equals(savedBand));
   }
 
-  // @Test
-  // public void addVenue_addsVenueToBand_true() {
-  //   Band myBand = new Band("Household chores");
-  //   myBand.save();
-  //   Venue myVenue = new Venue("Mow the lawn", "2016-05-14");
-  //   myVenue.save();
-  //   myBand.addVenue(myVenue);
-  //   Venue savedVenue = myBand.getVenues().get(0);
-  //   assertTrue(myVenue.equals(savedVenue));
-  // }
-  //
+  @Test
+  public void update_UpdatesBand_true() {
+    String[] array = {"1", "3"};
+    Band myBand = new Band("twenty one pilots", "a band", "bad", array);
+    myBand.save();
+    Band myBandcopy = Band.find(myBand.getId());
+    myBand.update("twenty two pilots", "a band", "bad", array);
+    assertTrue(myBand.getName() != myBandcopy.getName());
+  }
+
   @Test
   public void getVenues_returnsAllVenues_List() {
     String[] array = {"1", "3"};
@@ -108,7 +107,22 @@ public class BandTest {
   }
 
   @Test
-  public void delete_deletesAllVenuesAndVenuesAssociations() {
+  public void getGenre_returnsAllgenres_List() {
+    String[] array = {"1", "3"};
+    Band myBand1 = new Band("twenty one pilots", "a band", "Rock", array);
+    myBand1.save();
+    Band myBand2 = new Band("twenty one pilots", "a band", "Rap", array);
+    myBand2.save();
+    Band myBand3 = new Band("twenty one pilots", "a band", "Rock", array);
+    myBand3.save();
+    Band myBand4 = new Band("twenty one pilots", "a band", "Bad", array);
+    myBand4.save();
+    List savedGenres = Band.allGenre();
+    assertEquals(3, savedGenres.size());
+  }
+
+  @Test
+  public void delete_deletesAllBandsAndVenuesAssociations() {
     String[] array = {"1", "3"};
     Band myBand = new Band("twenty one pilots", "a band", "bad", array);
     myBand.save();

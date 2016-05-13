@@ -47,7 +47,7 @@ public class Band {
     }
   }
   public static List<String> allGenre() {
-    String sql = "SELECT genre FROM bands ORDER BY genre ASC";
+    String sql = "SELECT DISTINCT genre FROM bands ORDER BY genre ASC";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(String.class);
     }
@@ -59,7 +59,7 @@ public class Band {
       return false;
     } else {
       Band newBand = (Band) otherBand;
-      return this.getDescription().equals(newBand.getDescription()) &&
+      return this.getName().equals(newBand.getName()) &&
       this.getId() == newBand.getId();
     }
   }
