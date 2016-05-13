@@ -37,10 +37,18 @@ public class BandTest {
     assertEquals("a band", myBand.getDescription());
   }
 
-  // @Test
-  // public void all_emptyAtFirst_0() {
-  //   assertEquals(0, Band.all().size());
-  // }
+  @Test
+  public void getId_BandInstantiatesWithId_Int() {
+    String[] array = {"1", "3"};
+    Band myBand = new Band("twenty one pilots", "a band", "bad", array);
+    myBand.save();
+    assertEquals(1, myBand.getId());
+  }
+
+  @Test
+  public void all_emptyAtFirst_0() {
+    assertEquals(0, Band.all().size());
+  }
   //
   // @Test
   // public void equals_returnsTrueIfNamesAretheSame_true() {
