@@ -86,18 +86,18 @@ public class BandTest {
   }
 
   // @Test
-  // public void addTask_addsTaskToBand_true() {
+  // public void addVenue_addsVenueToBand_true() {
   //   Band myBand = new Band("Household chores");
   //   myBand.save();
-  //   Task myTask = new Task("Mow the lawn", "2016-05-14");
-  //   myTask.save();
-  //   myBand.addTask(myTask);
-  //   Task savedTask = myBand.getTasks().get(0);
-  //   assertTrue(myTask.equals(savedTask));
+  //   Venue myVenue = new Venue("Mow the lawn", "2016-05-14");
+  //   myVenue.save();
+  //   myBand.addVenue(myVenue);
+  //   Venue savedVenue = myBand.getVenues().get(0);
+  //   assertTrue(myVenue.equals(savedVenue));
   // }
   //
   @Test
-  public void getTasks_returnsAllTasks_List() {
+  public void getVenues_returnsAllVenues_List() {
     String[] array = {"1", "3"};
     Band myBand = new Band("twenty one pilots", "a band", "bad", array);
     myBand.save();
@@ -107,15 +107,15 @@ public class BandTest {
     assertEquals(1, savedVenues.size());
   }
 
-  // @Test
-  // public void delete_deletesAllTasksAndCategoriesAssociations() {
-  //   Band myBand = new Band("Household chores");
-  //   myBand.save();
-  //   Task myTask = new Task("Mow the lawn", "2016-05-14");
-  //   myTask.save();
-  //   myBand.addTask(myTask);
-  //   myBand.delete();
-  //   assertEquals(0, myTask.getCategories().size());
-  // }
+  @Test
+  public void delete_deletesAllVenuesAndVenuesAssociations() {
+    String[] array = {"1", "3"};
+    Band myBand = new Band("twenty one pilots", "a band", "bad", array);
+    myBand.save();
+    Venue myVenue = new Venue("Moda Center", "13105", true);
+    myVenue.save();
+    myBand.delete();
+    assertEquals(0, myVenue.getBands().size());
+  }
 
 }
