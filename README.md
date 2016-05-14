@@ -8,7 +8,7 @@ A web page made in java that allows you to add Venues and then add Bands that ha
 
 ## Setup/Installation Requirements
 
-* Clone repository
+* Clone repository or visit:  https://radiant-tor-12790.herokuapp.com/
 * Install gradle
 * create database band_tracker in your local PSQL
 * open terminal and run the command "psql band_tracker < bandtracker.sql" to import the database
