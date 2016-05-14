@@ -168,7 +168,7 @@ COPY bands (id, name, description, genre) FROM stdin;
 -- Name: bands_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('bands_id_seq', 8, true);
+SELECT pg_catalog.setval('bands_id_seq', 11, true);
 
 
 --
@@ -191,6 +191,7 @@ COPY venues (id, name, location, minor) FROM stdin;
 13	The Know	2026 NE Alberta Street	f
 14	Valentines	232 SW Ankeny Street	f
 15	The Thirsty Lion	10205 SW Washington Square Rd. Tigard, OR 97223	t
+16	Oregon Zoo	4001 SW Canyon Rd, Portland, OR 97221	t
 \.
 
 
@@ -212,14 +213,14 @@ COPY venues_bands (id, venue_id, band_id) FROM stdin;
 -- Name: venues_bands_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('venues_bands_id_seq', 23, true);
+SELECT pg_catalog.setval('venues_bands_id_seq', 28, true);
 
 
 --
 -- Name: venues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('venues_id_seq', 15, true);
+SELECT pg_catalog.setval('venues_id_seq', 16, true);
 
 
 --

@@ -1,7 +1,9 @@
-
+<div class="jumbotron">
+    <h1>$band.getName()</h1>
+</div>
+<div class="container cback">
 <div class="row">
   <div class="col-sm-6">
-    <h1>$band.getName()</h1>
     <h2>Description</h2>
     <h4>$band.getDescription()</h4>
     <h4>Genere: $band.getGenre()</h4>
@@ -9,7 +11,7 @@
     <h2>Venues</h2>
     <ul>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6 align">
       <form action="/bands/edit/$band.getId()" method="get" class="myinline">
         <button type="submit" class="btn btn-lg btn-info">Edit</button>
       </form>
@@ -28,3 +30,4 @@
     </ul></li>
     <hr>
   #end
+<p><a href="/">Home</a></p></div>

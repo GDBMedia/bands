@@ -1,4 +1,7 @@
-<h1>All venues</h1>
+<div class="jumbotron">
+  <h1>All Venues</h1>
+</div>
+<div class="container cback">
 #if($venues.size() > 0)
 
 <div class="row">
@@ -26,15 +29,15 @@
 
 <form action="/venues" method="post">
   <div class="form-group">
-    <label for="name">Venue Name</label>
-    <input id="name" name="name" required autofocus placeholder="Name of Venue" class="form-control" type="text">
+    <label for="name" class="formlabel">Venue Name</label>
+    <input id="name" name="name" required autofocus placeholder="Name of Venue" pattern="^[^\s]+(\s+[^\s]+)*$" class="form-control" type="text">
   </div>
   <div class="form-group">
-    <label for="location">Venue Location</label>
-    <input id="location" name="location" required class="form-control" placeholder="Location of Venue" type="text">
+    <label for="location" class="formlabel">Venue Location</label>
+    <input id="location" name="location" required class="form-control" pattern="^[^\s]+(\s+[^\s]+)*$" placeholder="Location of Venue" type="text">
   </div>
   <div class="form-group">
-    <label for="minor">Minors Allowed?</label>
+    <label for="minor" class="formlabel">Minors Allowed?</label>
     <select id="minor" name="minor" required class="form-control">
       <option value="true">Yes</option>
       <option value="false">No</option>
@@ -45,3 +48,4 @@
 </form>
 
 <p><a href="/">Home</a></p>
+</div>

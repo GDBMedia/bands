@@ -28,71 +28,115 @@ public class AppTest extends FluentTest {
     goTo("http://localhost:4567/");
     assertThat(pageSource()).contains("Band Tracker");
   }
-//
-//   @Test
-//   public void categoryIsCreatedTest() {
-//     goTo("http://localhost:4567/");
-//     click("a", withText("Categories"));
-//     fill("#name").with("Household chores");
-//     submit(".btn");
-//     assertThat(pageSource()).contains("Household chores");
-//   }
-//
-//   @Test
-//   public void taskIsCreatedTest() {
-//     goTo("http://localhost:4567/");
-//     click("a", withText("Tasks"));
-//     fill("#description").with("Mow the lawn");
-//     fill("#duedate").with("2016-05-14");
-//     submit(".btn");
-//     assertThat(pageSource()).contains("Mow the lawn");
-//     assertThat(pageSource()).contains("May 14 2016");
-//   }
-//
-//   @Test
-//   public void categoryShowPageDisplaysName() {
-//     Category testCategory = new Category("Household chores");
-//     testCategory.save();
-//     String url = String.format("http://localhost:4567/categories/%d", testCategory.getId());
-//     goTo(url);
-//     assertThat(pageSource()).contains("Household chores");
-//   }
-//
-//   @Test
-//   public void taskShowPageDisplaysDescription() {
-//     Task testTask = new Task("Mow the lawn", "2016-05-14");
-//     testTask.save();
-//     String url = String.format("http://localhost:4567/tasks/%d", testTask.getId());
-//     goTo(url);
-//     assertThat(pageSource()).contains("Mow the lawn");
-//   }
-//
-//   @Test
-//   public void taskIsAddedToCategory() {
-//     Category testCategory = new Category("Household chores");
-//     testCategory.save();
-//     Task testTask = new Task("Mow the lawn", "2016-05-14");
-//     testTask.save();
-//     String url = String.format("http://localhost:4567/categories/%d", testCategory.getId());
-//     goTo(url);
-//     fillSelect("#task_id").withText("Mow the lawn");
-//     submit(".btn");
-//     assertThat(pageSource()).contains("<li>");
-//     assertThat(pageSource()).contains("Mow the lawn");
-//   }
-//
-//   @Test
-//   public void categoryIsAddedToTask() {
-//     Category testCategory = new Category("Household chores");
-//     testCategory.save();
-//     Task testTask = new Task("Mow the lawn", "2016-05-14");
-//     testTask.save();
-//     String url = String.format("http://localhost:4567/tasks/%d", testTask.getId());
-//     goTo(url);
-//     fillSelect("#category_id").withText("Household chores");
-//     submit(".btn");
-//     assertThat(pageSource()).contains("<li>");
-//     assertThat(pageSource()).contains("Household chores");
-//   }
-//
+
+  @Test
+  public void BandIsCreatedTest() {
+    Venue myVenue1 = new Venue("Moda Center", "13105", true);
+    myVenue1.save();
+    Venue myVenue2 = new Venue("River Rock", "13105", true);
+    myVenue2.save();
+    Venue myVenue3 = new Venue("Lounge", "13105", true);
+    myVenue3.save();
+    goTo("http://localhost:4567/");
+    click("a", withText("Add a Band"));
+    fill("#name").with("twenty one pilots");
+    fill("#description").with("a band");
+    fill("#genre").with("bad");
+    click("label", withText("Moda Center"));
+    click("label", withText("Lounge"));
+    submit(".btn");
+    assertThat(pageSource()).contains("Moda Center");
+    assertThat(pageSource()).contains("Lounge");
+    assertThat(pageSource()).contains("twenty one pilots");
+  }
+
+  @Test
+  public void BandIsCreatedAndViewableTest() {
+    Venue myVenue1 = new Venue("Moda Center", "13105", true);
+    myVenue1.save();
+    Venue myVenue2 = new Venue("River Rock", "13105", true);
+    myVenue2.save();
+    Venue myVenue3 = new Venue("Lounge", "13105", true);
+    myVenue3.save();
+    goTo("http://localhost:4567/");
+    click("a", withText("Add a Band"));
+    fill("#name").with("twenty one pilots");
+    fill("#description").with("a band");
+    fill("#genre").with("bad");
+    click("label", withText("Moda Center"));
+    click("label", withText("Lounge"));
+    submit(".btn");
+    goTo("http://localhost:4567/");
+    click("a", withText("View Bands"));
+    assertThat(pageSource()).contains("twenty one pilots");
+    assertThat(pageSource()).contains("bad");
+  }
+
+  @Test
+  public void venueIsCreated() {
+    goTo("http://localhost:4567/");
+    click("a", withText("View Venues"));
+    fill("#name").with("Moda Center");
+    fill("#location").with("13105");
+    click("option", withText("Yes"));
+    submit(".btn");
+    assertThat(pageSource()).contains("Moda Center");
+    assertThat(pageSource()).contains("Yes");
+  }
+
+  @Test
+  public void bandIsCreatedandAddedToVenue() {
+    goTo("http://localhost:4567/");
+    click("a", withText("View Venues"));
+    fill("#name").with("Moda Center");
+    fill("#location").with("13105");
+    click("option", withText("Yes"));
+    submit(".btn");
+    click("a", withText("Home"));
+    click("a", withText("Add a Band"));
+    fill("#name").with("twenty one pilots");
+    fill("#description").with("a band");
+    fill("#genre").with("bad");
+    click("label", withText("Moda Center"));
+    submit(".btn");
+    click("a", withText("Home"));
+    click("a", withText("View Venues"));
+    click("a", withText("Moda Center"));
+    assertThat(pageSource()).contains("Moda Center");
+    assertThat(pageSource()).contains("twenty one pilots");
+  }
+
+  @Test
+  public void BandIsEditedAndViewableTest() {
+    Venue myVenue1 = new Venue("Moda Center", "13105", true);
+    myVenue1.save();
+    goTo("http://localhost:4567/");
+    click("a", withText("Add a Band"));
+    fill("#name").with("twenty one pilots");
+    fill("#description").with("a band");
+    fill("#genre").with("bad");
+    click("label", withText("Moda Center"));
+    submit(".btn");
+    submit(".btn", withText("Edit"));
+    fill("#name").with("twenty two pilots");
+    submit(".btn");
+    assertThat(pageSource()).contains("twenty two pilots");
+    assertThat(pageSource()).contains("bad");
+  }
+
+  @Test
+  public void BandIsDeletedTest() {
+    Venue myVenue1 = new Venue("Moda Center", "13105", true);
+    myVenue1.save();
+    goTo("http://localhost:4567/");
+    click("a", withText("Add a Band"));
+    fill("#name").with("twenty one pilots");
+    fill("#description").with("a band");
+    fill("#genre").with("bad");
+    click("label", withText("Moda Center"));
+    submit(".btn");
+    assertEquals(1, Band.all().size());
+    submit(".btn", withText("Delete"));
+    assertEquals(0, Band.all().size());
+  }
 }

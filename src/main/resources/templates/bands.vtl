@@ -1,4 +1,9 @@
-<h1>All Bands</h1>
+
+<div class="jumbotron">
+  <h1>All Bands</h1>
+</div>
+<div class="container cback">
+
 #if($bands.size() > 0)
 
 <div class="row">
@@ -11,7 +16,7 @@
     #end
     #set($a = $a+1)
     #if($band.getName() != "")
-      <div class="col-md-3">
+      <div class="col-sm-3">
         <li><a href="/bands/$band.getId()">$band.getName()</a>
         <ul><li>Genre: $band.getGenre()</li></ul></li>
       </div>
@@ -23,3 +28,4 @@
 #end
 
 <p><a href="/">Home</a></p>
+</div>

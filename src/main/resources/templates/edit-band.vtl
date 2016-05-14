@@ -1,16 +1,21 @@
-<h1>Edit $band.getName()</h1>
+
+<div class="jumbotron">
+  <h1>Edit $band.getName()</h1>
+</div>
+<div class="container cback">
+
 <form action="/band-edit/$band.getId()" method="post">
   <div class="form-group">
-    <label for="name">Band Name</label>
-    <input id="name" name="name" required autofocus placeholder="Name of Band" value="$band.getName()" class="form-control" type="text">
+    <label for="name" class="formlabel">Band Name</label>
+    <input id="name" name="name" required autofocus placeholder="Name of Band" value="$band.getName()" pattern="^[^\s]+(\s+[^\s]+)*$" class="form-control" type="text">
   </div>
   <div class="form-group">
-    <label for="description">Band Description</label>
-    <input id="description" name="description" required class="form-control" value="$band.getDescription()" placeholder="Description of Band" type="text">
+    <label for="description" class="formlabel">Band Description</label>
+    <input id="description" name="description" required class="form-control" value="$band.getDescription()" pattern="^[^\s]+(\s+[^\s]+)*$" placeholder="Description of Band" type="text">
   </div>
   <div class="form-group">
-    <label for="genre">Band Genre</label>
-    <input id="genre" name="genre" required class="form-control" list="genreType" value="$band.getGenre()" placeholder="Genre of Band" type="text">
+    <label for="genre" class="formlabel">Band Genre</label>
+    <input id="genre" name="genre" required class="form-control" list="genreType" value="$band.getGenre()" pattern="^[^\s]+(\s+[^\s]+)*$" placeholder="Genre of Band" type="text">
     <datalist id="genreType">
       #foreach($genre in $genres)
         <option value="$genre" />
@@ -18,7 +23,7 @@
     </datalist>
   </div>
   <div class="form-group">
-    <label for="tags">Venues</label>
+    <label for="venues" class="formlabel">Venues</label>
     <br>
     <div class="row">
       #set( $a = 0 )
@@ -30,7 +35,7 @@
           <div class="row">
         #end
         #set($a = $a+1)
-          <div class="col-md-3 venuecheck">
+          <div class="col-sm-3 venuecheck">
             <input type="checkbox" name="venues" #foreach($venue2 in $band.getVenues()) #if($venue2.getName() == $venue.getName()) checked #end #end class="mycheckbox" id="$venue.getId()" value="$venue.getId()"><label for="$venue.getId()" class="mylabel">$venue.getName()</label>
           </div>
         #end
@@ -39,3 +44,4 @@
   <br>
     <button type="submit" class="btn btn-success btn-lg">Update Band</button>
 </form>
+</div>

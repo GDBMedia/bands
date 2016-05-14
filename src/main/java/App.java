@@ -8,6 +8,7 @@ public class App {
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
 
+//READ
     get("/", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       model.put("template", "templates/index.vtl");
@@ -60,34 +61,9 @@ public class App {
       model.put("template", "templates/edit-band.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+//READ
 
-    // get("/venues/:id", (request,response) ->{
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   Venue category = Venue.find(Integer.parseInt(request.params("id")));
-    //   model.put("category", category);
-    //   model.put("allBands", Band.all());
-    //   model.put("template", "templates/category.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-    //
-    // get("/venues/edit/:id", (request,response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   Band band = Band.find(Integer.parseInt(request.params("id")));
-    //   model.put("band", band);
-    //   model.put("template", "templates/edit-category.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-    //
-    // post("/bands", (request, response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   String description = request.queryParams("description");
-    //   String duedate = request.queryParams("duedate");
-    //   Band newBand = new Band(description, duedate);
-    //   newBand.save();
-    //   response.redirect("/bands");
-    //   return null;
-    // });
-    //
+//CREATE
     post("/venues", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       String name = request.queryParams("name");
@@ -110,7 +86,10 @@ public class App {
       response.redirect("/bands/" + Integer.toString(newBand.getId()));
       return null;
     });
+  //CREATE
 
+
+//DELETE
     post("delete/:id", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Band band;
@@ -127,11 +106,6 @@ public class App {
           band.delete();
           response.redirect("/venues/" + id);
           break;
-        // case 3:
-        //   Venue category = Venue.find(Integer.parseInt(request.params("id")));
-        //   category.delete();
-        //   response.redirect("/venues");
-        //   break;
         default:
           response.redirect("/");
           break;
@@ -139,12 +113,10 @@ public class App {
 
       return null;
     });
+  //DELETE
 
-    // get("/:", (request, response) -> {
-    //   response.redirect("/venues");
-    //   return null;
-    // });
 
+//UPDATE
     post("/band-edit/:id", (request, response) -> {
       String name = request.queryParams("name");
       String description = request.queryParams("description");
@@ -155,16 +127,6 @@ public class App {
       response.redirect("/bands/" + request.params("id"));
       return null;
     });
-
-    // post("/add_venues", (request, response) -> {
-    //   int bandId = Integer.parseInt(request.queryParams("band_id"));
-    //   int categoryId = Integer.parseInt(request.queryParams("category_id"));
-    //   Venue category = Venue.find(categoryId);
-    //   Band band = Band.find(bandId);
-    //   band.addVenue(category);
-    //   response.redirect("/bands/" + bandId);
-    //   return null;
-    // });
-
+//UPDATE 
   }
 }
